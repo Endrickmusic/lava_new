@@ -1,17 +1,39 @@
-import { OrbitControls, RoundedBox } from "@react-three/drei"
-import { useLoader } from "@react-three/fiber"
-import * as THREE from "three"
+import { OrbitControls, shaderMaterial } from "@react-three/drei"
+import { useFrame } from "@react-three/fiber"
+import { useRef, useMemo } from "react"
+
+import vertexShader from "./shader/vertexShader.js"
+import fragmentShader from "./shader/fragmentShader.js"
+import { DoubleSide } from "three"
 
 
 export default function Experience(){
 
+const mesh = useRef()
+
+const uniforms = useMemo(
+  () => ({
+    uTime: { value:0.0 }
+  }), []
+)
+
+useFrame((state, delta) => {
+  mesh.current.material.uniforms.uTime.value += delta
+})
 
   return (
     <>
       <OrbitControls />    
-      <mesh>   
+      <mesh
+        ref={mesh}
+      >   
         <planeGeometry args={[1, 1, 32, 32]}/>
-          <meshNormalMaterial />
+          <shaderMaterial 
+            vertexShader = { vertexShader }
+            fragmentShader = { fragmentShader }
+            uniforms = { uniforms }
+            side = { DoubleSide }
+          />
           </mesh>
    </>
   )}
