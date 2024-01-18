@@ -1,3 +1,3 @@
-# React Three Fiber + Vite
+# Lava with R3f + Vite
 
-Easy Template for React Three Fiber
+Lava with React Three Fiber
