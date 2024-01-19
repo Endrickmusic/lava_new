@@ -1,23 +1,19 @@
 const fragmentShader = `
 
 uniform float uTime;
+uniform float progress;
+uniform sampler2D texture1;
+uniform vec4 resolution;
+varying vec2 vUv;
+varying  vec3 vPosition;
+varying vec3 vColor;
+float PI = 3.1415926;
+
 
 void main() {
-
-    // Set a base color
-    vec3 baseColor = vec3(1.0, 1.0, 0.8);
-  
-    // Use the sine function to create a smooth color transition over time
-    float timeFactor = abs(sin(uTime*0.2)) + 0.4;
-  
-    // Use gl_FragCoord to incorporate position into the color calculation
-    vec3 positionFactor = normalize(gl_FragCoord.xyz) * 0.5 + 0.5;
-  
-    // Combine the factors to create the final color
-    vec3 color = baseColor * timeFactor * positionFactor;
-  
-    // Output the final color
-    gl_FragColor = vec4(color, 1.0);
+	// vec2 st = gl_FragCoord.xy/u_resolution;
+	gl_FragColor = vec4(vUv, 0.0, 1.0);
+	gl_FragColor = vec4(vColor, 1.0);
 }
 
 `
