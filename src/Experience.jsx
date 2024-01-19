@@ -18,7 +18,7 @@ const uniforms = useMemo(
 )
 
 useFrame((state, delta) => {
-  mesh.current.material.uniforms.uTime.value += delta
+  mesh.current.material.uniforms.uTime.value += delta / 100.
 })
 
   return (
@@ -27,7 +27,7 @@ useFrame((state, delta) => {
       <mesh
         ref={mesh}
       >   
-        <planeGeometry args={[1, 1, 32, 32]}/>
+        <planeGeometry args={[1, 1, 128, 128]}/>
           <shaderMaterial 
             vertexShader = { vertexShader }
             fragmentShader = { fragmentShader }
